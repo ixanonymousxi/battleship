@@ -1,0 +1,426 @@
+:root{
+    --shipBorder: 2px #2eb5ff solid;
+    --shipBorderColor:#31333f;
+}
+
+*{
+    box-sizing:border-box;
+    padding: 0;
+    margin: 0;
+}
+
+body{
+    background:#2d2d2d;
+    color:white;
+    font-size:16px;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+.game-container{
+    width:100%;
+    height:100vh;
+    display:grid;
+    grid-template-rows: auto 1fr;
+    grid-template-columns: 1fr 1fr;
+    gap:20px;
+    padding-top: 40px;
+    position:relative;
+}
+
+.row{
+    grid-column: 1 / 3;
+    text-align:center;
+}
+
+.row h1{
+    font-family: "Anton", sans-serif;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+#header-message, #end-game-message{
+    margin-bottom: 15px;
+}
+
+.start-button, .done-btn{
+    padding: 1rem 2rem;
+    font-family: 'Lato', sans-serif;
+    font-size: 16px;
+    font-weight: 900;
+    font-style: normal;
+    text-shadow: 0px -1px 0px rgba(0, 0, 0, 0.4);
+    text-decoration: none;
+    outline: none;
+    border: 1px solid #ba6;
+    border-top-color: rgb(187, 170, 102);
+    border-right-color: rgb(187, 170, 102);
+    border-bottom-color: rgb(187, 170, 102);
+    border-left-color: rgb(187, 170, 102);
+    backface-visibility: hidden;
+    position: relative;
+    cursor: pointer;
+    display: inline-block;
+    white-space: nowrap;
+    border-color: #111;
+    color: #a5b7bc;
+    background: linear-gradient(180deg, #204e5c 0%, #020707 49%, #070f14 51%, #19353f 100%);
+    border-radius: 5px;
+    box-shadow: inset 0px 1px 0px rgba(255, 255, 255, .5), 0px 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+.start-button:hover, .done-btn:hover {
+    color:rgb(167, 217, 218);
+    background: #05364e;
+}
+
+.start-button:active, .done-btn:active {
+    background: white;
+    color: black;
+    box-shadow:inset 2px 2px 2px black;
+}
+
+.col{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.ship-block-col{
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-content: flex-start;
+    gap: 20px;
+    padding-top: 55px;
+}
+
+.ship-block{
+    /*
+    background:rgb(215, 215, 215);
+    color:black;
+    */
+    padding:2rem 0;
+    display: flex;
+    justify-content: center;
+    flex-wrap:wrap;
+    cursor:pointer;
+    position:relative;
+    min-width:210px;
+
+    background: transparent;
+    box-shadow: inset 0px 1px 0px rgba(255, 255, 255, 1), 0px 1px 3px rgba(0, 0, 0, 0.3);
+    outline: none;
+    border: 1px solid #677e89;
+
+    background: linear-gradient(180deg, #e6e6e6 0%, rgba(0, 0, 0, 0.25) 49%, rgba(38, 38, 38, 0.6) 51%, rgba(0, 0, 0, 0.25) 100%);
+    border-radius: 5px;
+
+    font-family: "Anton", sans-serif;
+    font-weight:100;
+    letter-spacing: 1px;
+}
+
+.ship-block:hover{
+    background:#12000000;
+    border:2px solid #99c9d8;
+    color:#99c9d8;
+}
+
+.ship-block:hover .ship{
+    background:#99c9d8;
+}
+
+.selected-ship-block{
+    background: #05364e;
+    box-shadow: inset 4px 4px 2px black;
+}
+
+.selected-ship-block .ship{
+    background: #99c9d8;
+}
+
+.ship-block p{
+    margin-top:10px;
+    width:100%;
+    text-align: center;
+}
+
+.rotate{
+    position:absolute;
+    bottom:7px;
+    right:7px;
+}
+
+.rotate .material-symbols-outlined{
+    font-size:19px;
+}
+
+.ship-block .ship{
+    background:white;
+}
+
+.ship-5-X{
+    width:140px;
+    height:20px;
+}
+
+.ship-4-X {
+    width: 110px;
+    height: 20px;
+}
+
+.ship-3-X {
+    width: 80px;
+    height: 20px;
+}
+
+.ship-2-X {
+    width: 50px;
+    height: 20px;
+}
+
+.ship-5-Y {
+    width: 20px;
+    height: 140px;
+}
+
+.ship-4-Y {
+    width: 20px;
+    height:110px;
+}
+
+.ship-3-Y {
+    width: 20px;
+    height: 80px;
+}
+
+.ship-2-Y {
+    width: 20px;
+    height: 50px;
+}
+
+.info-container{
+    text-align: center;
+    margin-top: 20px;
+}
+
+.info-container h3{
+    font-family: "Anton", sans-serif;
+    font-weight: 100;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+.board-container{
+    display:grid;
+    grid-template-columns: repeat(11,3rem);
+    grid-template-rows: repeat(11, 3rem);
+    position:relative;
+}
+
+
+.space{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position:relative;
+}
+
+.space-border{
+    border: 1.3px solid #2d2d2d;
+}
+
+.end::after{
+    content:'';
+    width:25px;
+    height:25px;
+    border-top-left-radius:25px;
+    border-bottom-left-radius: 25px;
+    position:absolute;
+    top:0;
+    left:0;
+}
+
+.water{
+    background:#2eb5ff;
+}
+
+.radar {
+    background: #76ad42;
+    cursor:pointer;
+}
+
+.ship{
+    background:#696d72;
+}
+
+.ship-X{
+    box-shadow:inset 0px -2px 0px var(--shipBorderColor),
+    inset 0px 2px 0px var(--shipBorderColor);
+}
+
+.ship-X-start {
+    box-shadow: inset 2px 0px 0px var(--shipBorderColor),
+    inset 0px -2px 0px var(--shipBorderColor),
+    inset 0px 2px 0px var(--shipBorderColor);
+}
+
+.ship-X-end {
+    box-shadow: inset -2px 0px 0px var(--shipBorderColor),
+    inset 0px -2px 0px var(--shipBorderColor),
+    inset 0px 2px 0px var(--shipBorderColor);
+}
+
+.ship-Y {
+    box-shadow: inset -2px 0px 0px var(--shipBorderColor),
+    inset 2px 0px 0px var(--shipBorderColor);
+}
+
+.ship-Y-start {
+    box-shadow: inset 0px 2px 0px var(--shipBorderColor),
+    inset -2px 0px 0px var(--shipBorderColor),
+    inset 2px 0px 0px var(--shipBorderColor);
+}
+
+.ship-Y-end {
+    box-shadow: inset 0px -2px 0px var(--shipBorderColor),
+    inset -2px 0px 0px var(--shipBorderColor),
+    inset 2px 0px 0px var(--shipBorderColor);
+}
+
+.peg{
+    width: 50%;
+    height: 50%;
+    border-radius:25px;
+    box-shadow:inset 1px 1px 3px #191919;
+}
+
+.red{
+    background:red;
+    box-shadow:1px 1px 3px #303030;
+}
+
+.white{
+    background:white;
+    box-shadow: 1px 1px 3px #303030;
+}
+
+.shipHover {
+    background: #45eb8b;
+    border: solid 2px #25994c;
+    cursor:pointer;
+}
+
+.computerMessage{
+    width: 91%;
+    height: 91%;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    padding:2rem;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    text-align:center;
+}
+
+.hitBG{
+    background: #470808e5;
+    background-repeat: repeat;
+    background-image: none;
+    background-size: auto;
+    background-image: url(./images/explosion-2.gif);
+    background-repeat: no-repeat;
+    background-size: cover;
+    opacity: 0.8;
+}
+
+.missBG {
+    background: #083347e5;
+    background-repeat: repeat;
+    background-image: none;
+    background-size: auto;
+    background-image: url(./images/water.gif);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    background-blend-mode: multiply;
+    opacity: 0.8;
+}
+
+.mainScreen{
+    background-image: url(./images/battleship-bg.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    grid-template-rows: 50% 1fr;
+}
+
+.mainScreen .row{
+    grid-row: 2/3;
+}
+
+.mainScreen .row h1 {
+    font-family: "Anton", sans-serif;
+    font-size: 9rem;
+    text-transform: uppercase;
+    -webkit-text-stroke-color: #41707e;
+    -webkit-text-stroke-width: 2.00px;
+    background: -webkit-linear-gradient(white, #246f81);
+    background-clip: border-box;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.gameBG{
+    background-image: url(./images/battleship-bg-3.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+
+}
+
+.end-game{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(25, 25, 25, 0.95);
+    display: none;
+    z-index: 10;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+
+@media  (max-width: 1200px) {
+    .board-container {
+            grid-template-columns: repeat(11, 2.5rem);
+            grid-template-rows: repeat(11, 2.5rem);
+        }
+
+}
+
+
+@media (max-width: 800px) {
+    .game-container {
+            min-height:100vh;
+            height: auto;
+            display: flex;
+            flex-direction: column;
+        }
+}
+
+@media (max-width: 600px) {
+    .mainScreen .row h1 {
+            font-size: 4.5rem;
+        }
+
+    .board-container {
+            grid-template-columns: repeat(11, 1.5rem);
+            grid-template-rows: repeat(11, 1.5rem);
+        }
+
+}
